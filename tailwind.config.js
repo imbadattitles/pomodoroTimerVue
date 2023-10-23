@@ -2,9 +2,9 @@
 export default {
   darkMode: 'class',
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}'
+    './index.html',
+    './src/**/*.{vue,js,ts,jsx,tsx}',
+    './components/**/*.{vue,js,ts,jsx,tsx}'
   ],
   theme: {
     colors: {
