@@ -20,7 +20,7 @@ const restTimer = useRestTimer()
         class="fill-[#14401D] dark:fill-white"
       />
     </svg>
-    <span class="text-2xl font-medium text-green900 dark:text-white">Focus</span>
+    <span class="text-2xl font-medium text-green900 dark:text-white">Rest</span>
   </div>
   <div class="flex flex-col">
     <span
