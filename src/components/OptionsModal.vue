@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LabelOptionsRadio from './UI/LabelOptionsRadio.vue'
 import LabelOptionsNumber from './UI/LabelOptionsNumber.vue'
-import { defineEmits } from 'vue'
+import { defineEmits, ref } from 'vue'
 import { useOptions } from '@/stores/option'
 const emit = defineEmits(['update:modalVisible'])
 let Options = useOptions()
@@ -16,14 +16,36 @@ defineProps({
     default: false
   }
 })
+const coordX = ref(0)
+const coordY = ref(0)
+
+const dragstart = (e: DragEvent) => {
+  if (e.dataTransfer) {
+    e.dataTransfer.setData('text/html', 'dragstart')
+  }
+  coordX.value = e.offsetX
+  coordY.value = e.offsetY
+}
+
+const dragend = (e: DragEvent) => {
+  const element = e.target as HTMLDivElement
+  element.style.top = e.clientY - coordY.value + 'px'
+  element.style.left = e.clientX - coordX.value + 'px'
+}
 </script>
 
 <template>
   <div
     v-if="modalVisible"
-    class="absolute z-10 w-[448px] bg-white dark:bg-black py-8 pb-5 px-6 rounded-3xl shadow-[0_5.5px_16px_0px_rgba(0,0,0,0.19)]"
+    v-on:dragstart="dragstart"
+    v-on:dragend="dragend"
+    draggable="true"
+    class="absolute mr-96 overflow-hidden z-10 w-[448px] bg-white dark:bg-black dark:shadow-white py-8 pb-5 px-6 rounded-3xl shadow-[0_5.5px_16px_0px_rgba(0,0,0,0.19)]"
   >
     <div class="flex justify-between mb-3 items-center">
+      <span
+        class="absolute cursor-pointer w-full h-5 bg-black dark:bg-white opacity-5 dark:opacity-20 top-0 left-0"
+      />
       <p class="font-bold text-black dark:text-white text-2xl">Settings</p>
       <span @click="closeModal" class="cursor-pointer"
         ><svg

@@ -68,15 +68,16 @@ let props = defineProps({
     required: true
   }
 })
-const change = (e: any) => {
-  if (e.target.value > 99) {
+const change = (e: Event) => {
+  const element = e.target as HTMLInputElement
+  if (+element.value > 99) {
     valuenumber.value = 99
     return props.changeProp(99)
   }
-  if (e.target.value < 99) {
+  if (+element.value < 99) {
     {
-      valuenumber.value = e.target.value
-      return props.changeProp(e.target.value)
+      valuenumber.value = +element.value
+      return props.changeProp(element.value)
     }
   }
 }
