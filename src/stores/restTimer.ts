@@ -19,6 +19,14 @@ export const useRestTimer = defineStore('restTimer', () => {
   tick.volume = 0.01
   alarm.volume = 0.5
 
+  tick.addEventListener('timeupdate', function () {
+    const buffer = 1.0
+    if (this.currentTime > this.duration - buffer) {
+      this.currentTime = 0
+      this.play()
+    }
+  })
+
   const timerStart = () => {
     option.sound && tick.play()
     mode.value = 'rest'
